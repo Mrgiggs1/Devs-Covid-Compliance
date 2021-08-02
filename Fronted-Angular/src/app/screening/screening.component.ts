@@ -2,41 +2,55 @@ import { Component, Input, OnInit, Output } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { NgModel } from '@angular/forms';
 import { AppService } from '../app.service';
-
-export class Client {
-  constructor(
-    public client_id: number,
-    public client_status: string,
-    public client_fullname: string
-  ){}
-}
+import { Client } from '../models/client.model';
 
 @Component({
   selector: 'app-screening',
   templateUrl: './screening.component.html',
   styleUrls: ['./screening.component.css']
 })
-export class ScreeningComponent implements OnInit {
+export class ScreeningComponent implements OnInit { 
 
-  client: Client[] = [];
-  ngForm = {}
+  clientData: any;
+
   isCough = false;
   isBreathing = false;
   isFever = false;
   isSymptoms = false;
 
   constructor(public appService: AppService) { }
-  
 
   ngOnInit(): void {
     this.appService.getClient().subscribe( 
       response => {
-        this.client = response;
+        this.clientData = response;
       }, error => {
-        console.log('error!!!')
+        console.log(error , 'GET error!!!')
     });
   }
   
-  onSubmit(f: NgForm) {
-   
-}}
+  onSubmit(screeningForm: NgForm) {
+    console.log(screeningForm.value);
+    let newClient = { 
+      id: screeningForm.value.id,
+      fullname: screeningForm.value.fullname,
+      phone: screeningForm.value.phone,
+      cough: screeningForm.value.cough,
+      breathing: screeningForm.value.breathing,
+      symptoms: screeningForm.value.symptoms,
+      fever: screeningForm.value.fever,
+      symptom: screeningForm.value.symptom,
+      contact: screeningForm.value.contact,
+      contactCovid: screeningForm.value.contactCovid,
+      travelled: screeningForm.value.travelled,
+      appointment: screeningForm.value.appointment
+    }
+
+    this.appService.addClient(newClient).subscribe( 
+      (data: any) => {
+        console.log(data)
+      }, (error: any) => {
+        console.log(error, 'POST error!!!')
+    });
+  }
+}

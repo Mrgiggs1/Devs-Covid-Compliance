@@ -2,35 +2,36 @@
 <div class="row">
     <div class="col-md-6 offset-md-3 mt-4">
     <h3>COVID-19 Screening Form</h3>
-    <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
+    <form #screeningForm="ngForm" (ngSubmit)="onSubmit(screeningForm)" novalidate>
         <div class="form-group">
-            <label for="fullname">Full Name</label>
-            <input type="text" name="fullname" ngModel required #fullname="ngModel" class="form-control" id="fullname" placeholder="Full Name">
+            <label for="fullname"> Full Name </label>
+            <input type="hidden" ngModel name="id" #id="ngModel" class="form-control" id="id">
+            <input type="text" ngModel name="fullname" required #fullname="ngModel" class="form-control" id="fullname" placeholder="Full Name">
         </div>
         <div class="form-group">
             <label for="phonenumber">Phone Number</label>
-            <input type="text" name="phone" ngModel required #phone="ngModel" class="form-control" id="fullname" placeholder="Phone Number">
+            <input type="text" ngModel name="phone" required #phone="ngModel" class="form-control" id="fullname" placeholder="Phone Number">
         </div>
-        <div class="form-group">
+        <div class="form-group" ngModelGroup="symptoms">
             <label for="symptoms">Do have any of the following symptoms?</label>
             <div class="form-check">
                 <label class="form-check-label" for="cough">
-                <input type="checkbox" name="New and Persitent cough" ngModel> New and Persistent cough
+                <input type="checkbox" ngModel name="cough"> New and Persistent cough
                 </label>
             </div>
             <div class="form-check">
                 <label class="form-check-label" for="breathing">
-                    <input type="checkbox" name="Shortness of breath or any difficulty breathing" ngModel> Shortness of breath or any difficulty breathing
+                    <input type="checkbox" ngModel name="breathing"> Shortness of breath or any difficulty breathing
                 </label>
             </div>
             <div class="form-check">
                 <label class="form-check-label" for="fever">
-                    <input type="checkbox" name="fever" ngModel> Fever
+                    <input type="checkbox" ngModel name="fever"> Fever
                 </label>
             </div>
             <div class="form-check">
                 <label class="form-check-label" for="symptoms">
-                    <input type="checkbox" name="No Symptoms" ngModel > No Symptoms
+                    <input type="checkbox" ngModel name="symptom" > No Symptoms
                 </label>
             </div>
             
@@ -38,13 +39,13 @@
         <div class="form-group">
             <label for="contact">Have you been in contact with anyone in the last 14 days who is experiencing these symptoms?</label>
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="ContactSymptoms" value="Yes" required ngModel>
+                <input class="form-check-input" type="radio" ngModel name="contact" value="Yes" required>
                 <label class="form-check-label" for="contactYes">
                   Yes
                 </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="ContactSymptoms" value="No" required ngModel>
+                <input class="form-check-input" type="radio" ngModel name="contact" value="No" required>
                 <label class="form-check-label" for="contactNo">
                   No
                 </label>
@@ -53,30 +54,31 @@
         <div class="form-group">
             <label for="contactCovid">Have you been in contact with anyone who has since tested positive for Covid-19?</label>
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="ContactCovid" id="contactCovidYes" value="Yes" ngModel>
+                <input class="form-check-input" type="radio" ngModel name="contactCovid" id="contactCovidYes" value="Yes">
                 <label class="form-check-label">Yes</label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="ContactCovid" id="contactCovidNo" value="No" ngModel>
+                <input class="form-check-input" type="radio" ngModel name="contactCovid" id="contactCovidNo" value="No">
                 <label class="form-check-label">No</label>
             </div>
             
         </div>
         <div class="form-group">
             <label for="travelled">Have you travelled abroad in the last 1-2 months?</label>
-            <input type="text" name="travelled" ngModel required #travelled="ngModel" class="form-control" id="travelled" placeholder="Have you travelled abroad in the last 1-2 months?">
+            <input type="text" ngModel name="travelled" required #travelled="ngModel" class="form-control" id="travelled" placeholder="Have you travelled abroad in the last 1-2 months?">
         </div>
         <div class="form-group">
-            <label for="appointment">Reason for appointment</label>
-            <input type="text" name="appointment" ngModel required #appointment="ngModel" class="form-control" id="appointment" placeholder="Reason for appointment">
+            <label for="appointment"> Reason for appointment </label>
+            <input type="text" ngModel name="appointment" required #appointment="ngModel" class="form-control" id="appointment" placeholder="Reason for appointment">
         </div>
-        <div class="form-group">
-            <button type="submit" [disabled]="f.invalid" class="btn btn-primary">Submit</button> &nbsp; <button type="reset" class="btn btn-primary">Reset</button>
+        <div class="form-group" ngModelGroup="submit_reset">
+            <button type="submit" class="btn btn-primary"> Submit </button> &nbsp; 
+            <button type="reset" class="btn btn-primary"> Reset </button>
         </div>
 
         <h3>Form Info - to Check if the form has got the info</h3>
-        <p>Form values: {{ f.value | json }}</p>
-        <p>Form valid: {{ f.valid }}</p>
+        <p>Form values: {{ screeningForm.value | json }}</p>
+        <p>Form valid: {{ screeningForm.valid }}</p>
 
         <h3> All client or Users (DB) </h3>
         <table>
@@ -88,11 +90,11 @@
               </tr>
              </thead>
              <tbody>
-               <tr *ngFor="let visitor of client">
-                 <td> {{ visitor.client_id }} </td>
-                 <td> {{ visitor.client_fullname }} </td>
-                 <td> {{ visitor.client_status }} </td>
-               </tr>
+                <tr *ngFor="let visitor of clientData">
+                    <td> {{ visitor.id }} </td>
+                    <td> {{ visitor.fullname }} </td>
+                    <td> {{ visitor.phone }} </td>
+                  </tr>
             </tbody>
           </table>
         
