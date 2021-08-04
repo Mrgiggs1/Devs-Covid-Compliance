@@ -21,7 +21,6 @@ Router.get('/', (req, res) => {
 Router.post('/', (req, res, next) => {
    
     console.log(req.body);
-
     id = 2;
     fullname = req.body.fullname;
     phone = req.body.phone; 

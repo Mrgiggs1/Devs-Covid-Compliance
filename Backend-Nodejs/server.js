@@ -1,6 +1,8 @@
 const express = require('express');
 const mysql = require('mysql');
 const ClientRoutes = require('./routes/client')
+const RegRoutes = require('./routes/registration')
+const LoginRoutes = require('./routes/login')
 const connection = require('./connection');
 const cors = require('cors'); 
 const app = express();
@@ -10,6 +12,8 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json());
 app.use(cors());
 app.use('/client', ClientRoutes);
+app.use('/registration', RegRoutes);
+app.use('/login', LoginRoutes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log('server started on port ' + PORT)); 
