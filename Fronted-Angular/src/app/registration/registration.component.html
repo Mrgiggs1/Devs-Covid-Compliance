@@ -2,6 +2,14 @@
   <div class="col-md-6 offset-md-3 mt-4">
     <h2>Registration Form</h2>
     <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
+      <div class="form-group">
+          <label for="regUsername">ID Number</label>
+          <input type="text" name="idNumber" ngModel required class="form-control" id="idNumber" placeholder="ID Number" maxlength="13" minlength="13">
+        </div>
+        <div class="form-group">
+          <label for="regUsername">Student / Staff Number</label>
+          <input type="text" name="studentOrStaffNum" ngModel required class="form-control" id="studentStaffNumber" placeholder="Student Or Staff Number" maxlength="9">
+        </div>
         <div class="form-group">
           <label for="regUsername">First Name</label>
           <input type="text" name="first" ngModel required #first="ngModel" class="form-control" id="regFname" placeholder="First Name">
