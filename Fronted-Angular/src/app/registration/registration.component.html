@@ -4,11 +4,11 @@
     <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
       <div class="form-group">
           <label for="regUsername">ID Number</label>
-          <input type="text" name="idNumber" ngModel required class="form-control" id="idNumber" placeholder="ID Number" maxlength="13" minlength="13">
+          <input type="text" name="idNumber" ngModel required #idNumber="ngModel" class="form-control" id="idNumber" placeholder="ID Number" maxlength="13" minlength="13">
         </div>
         <div class="form-group">
           <label for="regUsername">Student / Staff Number</label>
-          <input type="text" name="studentOrStaffNum" ngModel required class="form-control" id="studentStaffNumber" placeholder="Student Or Staff Number" maxlength="9">
+          <input type="text" name="studentOrStaffNum" ngModel required #last="studentOrStaffNum" class="form-control" id="studentStaffNumber" placeholder="Student Or Staff Number" maxlength="9">
         </div>
         <div class="form-group">
           <label for="regUsername">First Name</label>
@@ -25,6 +25,10 @@
         <div class="form-group">
             <label for="loginUsername">Email</label>
             <input type="email" name="email" ngModel required #email="ngModel" class="form-control" id="regLname" placeholder="Email Address">
+        </div>
+        <div class="form-group">
+            <label for="loginUsername">Phone Number</label>
+            <input type="text" name="phone" ngModel required #phone="ngModel" class="form-control" id="regLname" placeholder="Phone Number">
         </div>
         <div class="form-group">
           <label for="loginPassword">Password</label>
